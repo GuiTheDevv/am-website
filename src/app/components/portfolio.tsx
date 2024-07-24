@@ -100,14 +100,15 @@ const posts = [
 
 export default function Portfolio() {
   return (
-    <div className="bg-white py-24 sm:py-32">
+    <div className="bg-transparent py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            From the blog
+          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            A Peek Into What We Do
           </h2>
-          <p className="mt-2 text-lg leading-8 text-gray-600">
-            Learn how to grow your business with our expert advice.
+          <p className="mt-2 text-lg leading-8 text-gray-400">
+            These are some of the projects that we have helped design and
+            develop.
           </p>
         </div>
         <div className="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">

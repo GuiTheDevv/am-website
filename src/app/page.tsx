@@ -4,14 +4,16 @@ import AboutUs from "./components/aboutUs";
 import Portfolio from "./components/portfolio";
 import Testimonials from "./components/testimonials";
 import Footer from "./components/footer";
+import Pricing from "./components/pricing";
 
 export default function Home() {
   return (
-    <main>
+    <main className="background">
       <Hero />
       <AboutUs />
       <Portfolio />
       <Testimonials />
+      <Pricing />
       <Footer />
     </main>
   );
