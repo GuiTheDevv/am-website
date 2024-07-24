@@ -134,7 +134,7 @@ export default function Pricing() {
               </p>
               <p className="mt-6 flex items-baseline gap-x-1">
                 <span className="text-4xl font-bold tracking-tight text-white">
-                  {tier.price[frequency.value]}
+                  {tier.price[frequency.value as "installment" | "oneTime"]}
                 </span>
                 <span className="text-sm font-semibold leading-6 text-gray-400">
                   {frequency.priceSuffix}
