@@ -5,16 +5,14 @@ import Portfolio from "./components/portfolio";
 import Testimonials from "./components/testimonials";
 import Footer from "./components/footer";
 import Pricing from "./components/pricing";
+import ContactForm from "./components/contactForm";
 
 export default function Home() {
   return (
     <main className="background">
-      <Hero />
       <AboutUs />
-      <Portfolio />
       <Testimonials />
-      <Pricing />
-      <Footer />
+      <ContactForm />
     </main>
   );
 }

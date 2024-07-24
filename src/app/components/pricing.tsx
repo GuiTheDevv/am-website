@@ -34,7 +34,7 @@ const tiers = [
     href: "#",
     price: { installment: "$30", oneTime: "$288" },
     description:
-      "Pick a tempalte, make some edits, and launch all within 5 days",
+      "Pick a template, make some edits, and launch all within 5 days",
     features: [
       "25 products",
       "Up to 10,000 subscribers",
