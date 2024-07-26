@@ -6,13 +6,15 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navigation = [
   { name: "Home", href: "#" },
-  { name: "Websites", href: "#" },
+  { name: "Websites", href: "/websites" },
   { name: "Apps", href: "#" },
   { name: "Systems", href: "#" },
 ];
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const [tabSelected, setTabSelected] = useState("home");
 
   return (
     <header className="bg-black border-b border-gray-900 fixed inset-x-0 top-0 z-50">
@@ -30,6 +32,8 @@ export default function Header() {
             />
           </a>
         </div>
+
+        {/* Mobile Menu */}
         <div className="flex lg:hidden">
           <button
             type="button"
@@ -40,6 +44,8 @@ export default function Header() {
             <Bars3Icon aria-hidden="true" className="h-6 w-6" />
           </button>
         </div>
+
+        {/* Desktop Menu */}
         <div className="hidden lg:flex lg:gap-x-12">
           {navigation.map((item) => (
             <a
