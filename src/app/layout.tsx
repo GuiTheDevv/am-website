@@ -28,9 +28,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="h-full">
       <body
-        className={`${montserrat.variable} ${poppins.variable} antialiased`}
+        className={`${montserrat.variable} ${poppins.variable} antialiased h-full`}
       >
         {children}
       </body>
