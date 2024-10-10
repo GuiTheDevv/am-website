@@ -6,19 +6,12 @@ import { User } from "../public/interfaces/user";
 import bcrypt from "bcrypt";
 
 export const authOptions = {
-  // Configure one or more authentication providers
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
+    // GoogleProvider({
+    //   clientId: process.env.GOOGLE_CLIENT_ID!,
+    //   clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    // }),
     CredentialsProvider({
-      // The name to display on the sign in form (e.g. "Sign in with...")
-      name: "Credentials",
-      // `credentials` is used to generate a form on the sign in page.
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
         email: {},
         password: {},
@@ -32,7 +25,7 @@ export const authOptions = {
 
         if (error) {
           //error handling
-          return null;
+          throw new Error("Incorrect username or password");
         }
 
         if (data) {
@@ -50,7 +43,7 @@ export const authOptions = {
               role: data.role,
             };
           } else {
-            return null;
+            throw new Error("Incorrect username or password");
           }
         }
         return null;
@@ -59,4 +52,4 @@ export const authOptions = {
   ],
 };
 
-export default NextAuth(authOptions);
+export default authOptions;

@@ -1,24 +1,41 @@
 "use client";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import Card from "../components/atoms/card";
 import Subtitle from "../components/atoms/subtitle";
 import Title from "next/image";
+import hashPassword from "../../../lib/passwordHasher";
 
 export default function LoginPage() {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    signIn("credentials", {
-      email: "email",
-      password: "password",
-      redirect: false,
-    });
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
+
+      const form = e.target as HTMLFormElement;
+      const email = (form.elements.namedItem("email") as HTMLInputElement)
+        .value;
+      const password = (form.elements.namedItem("password") as HTMLInputElement)
+        .value;
+
+      const hashedPassword = await hashPassword(password);
+
+      if (hashedPassword) {
+        signIn("credentials", {
+          email: email,
+          password: hashedPassword,
+          redirect: false,
+        });
+      }
+    } catch (error) {
+      //send error email
+      console.log(error);
+    }
   };
 
   return (
     <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-zinc-950 text-black">
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-zinc-950">
         <Card className="max-w-2xl mx-auto bg-black border border-gray-700">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <Title
@@ -29,7 +46,7 @@ export default function LoginPage() {
               className="mx-auto h-20 w-auto  "
             />
             <Subtitle className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight ">
-              Sign in to your account
+              Login into your account
             </Subtitle>
           </div>
 
@@ -96,7 +113,7 @@ export default function LoginPage() {
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-transparent hover:bg-white text-white outline outline-1 transition px-3 py-1.5 text-sm font-semibold leading-6 hover:text-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  Sign in
+                  Login
                 </button>
               </div>
             </form>
@@ -104,7 +121,7 @@ export default function LoginPage() {
             <p className="mt-10 text-center text-sm text-gray-500">
               Not a member?{" "}
               <a
-                href="#"
+                href="/signUp"
                 className="font-semibold leading-6 text-gray-300 hover:text-white"
               >
                 Sign Up
