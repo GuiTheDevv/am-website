@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins, Montserrat } from "next/font/google";
 
 import "./globals.css";
+import NextauthWrapper from "./components/session-wrappers/nextauth-wrapper";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,12 +29,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full">
-      <body
-        className={`${montserrat.variable} ${poppins.variable} antialiased h-full`}
-      >
-        {children}
-      </body>
-    </html>
+    <NextauthWrapper>
+      <html lang="en" className="h-full">
+        <body
+          className={`${montserrat.variable} ${poppins.variable} antialiased h-full`}
+        >
+          {children}
+        </body>
+      </html>
+    </NextauthWrapper>
   );
 }
