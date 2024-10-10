@@ -1,6 +1,9 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+import supabase from "../public/db/supabase";
+import { User } from "../public/interfaces/user";
+import bcrypt from "bcrypt";
 
 export const authOptions = {
   // Configure one or more authentication providers
@@ -21,18 +24,36 @@ export const authOptions = {
         password: {},
       },
       async authorize(credentials, req) {
-        // Add logic here to look up the user from the credentials supplied
-        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
+        let { data, error } = await supabase
+          .from("user")
+          .select("*")
+          .eq("email", credentials?.email)
+          .single();
 
-        if (user) {
-          // Any object returned will be saved in `user` property of the JWT
-          return user;
-        } else {
-          // If you return null then an error will be displayed advising the user to check their details.
+        if (error) {
+          //error handling
           return null;
-
-          // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
         }
+
+        if (data) {
+          const passwordCorrect = await bcrypt.compare(
+            credentials?.password as string,
+            data.hashed_password
+          );
+
+          if (passwordCorrect) {
+            return {
+              id: data.id,
+              first: data.first,
+              last: data.last,
+              email: data.email,
+              role: data.role,
+            };
+          } else {
+            return null;
+          }
+        }
+        return null;
       },
     }),
   ],
